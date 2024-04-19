@@ -46,10 +46,25 @@ const App = () => {
     toast.success('Item removed');
   };
 
+  const editItem = (itemId) => {
+    const newItems = items.map((item) => {
+      if (item.id === itemId) {
+        return {
+          ...item,
+          completed: !item.completed,
+        };
+      }
+      return item;
+    });
+
+    setItems(newItems);
+    setLocalStorage(newItems);
+  };
+
   return (
     <section className='section-center'>
       <Form addItem={addItem} />
-      <Items items={items} removeItem={removeItem} />
+      <Items items={items} removeItem={removeItem} editItem={editItem} />
       <ToastContainer autoClose={1000} />
     </section>
   );
