@@ -2,7 +2,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useState } from 'react';
 import Form from './Form';
 import { nanoid } from 'nanoid';
-import { ToastContainer } from 'react-toastify';
+import { ToastContainer, toast } from 'react-toastify';
 import Items from './Items';
 
 const App = () => {
@@ -16,15 +16,21 @@ const App = () => {
     };
 
     setItems([...items, newItem]);
+
+    toast.success('Item added');
   };
 
-  const removeItem = (itemId) => {};
+  const removeItem = (itemId) => {
+    const newItems = items.filter((item) => item.id !== itemId);
+    setItems(newItems);
+    toast.success('Item removed');
+  };
 
   return (
     <section className='section-center'>
       <Form addItem={addItem} />
       <Items items={items} removeItem={removeItem} />
-      <ToastContainer autoClose={2000} />
+      <ToastContainer autoClose={1000} />
     </section>
   );
 };
