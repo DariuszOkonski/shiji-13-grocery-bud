@@ -1,12 +1,18 @@
 import { useState } from 'react';
+import { toast } from 'react-toastify';
 
-const Form = () => {
+const Form = ({ addItem }) => {
   const [newItemName, setNewItemName] = useState('');
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(newItemName);
 
+    if (!newItemName) {
+      toast.error('Name can not be empty');
+      return;
+    }
+
+    addItem(newItemName);
     setNewItemName('');
   };
 
